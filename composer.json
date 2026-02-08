@@ -1,0 +1,36 @@
+{
+    "name": "juzaweb/api",
+    "description": "Api Module",
+    "type": "juzaweb-module",
+    "keywords": [],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Juzaweb CMS",
+            "email": "admin@juzaweb.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2"
+    },
+    "require-dev": {
+        "juzaweb/core": "dev-master",
+        "orchestra/testbench": "^8.0|^9.0",
+        "phpunit/phpunit": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Juzaweb\\Modules\\Api\\": "src/",
+            "Juzaweb\\Modules\\Api\\Database\\Factories\\": "database/factories/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Juzaweb\\Modules\\Api\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "config": {
+        "sort-packages": true
+    }
+}
