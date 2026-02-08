@@ -1,7 +1,6 @@
 {
     "name": "juzaweb/api",
     "description": "Api Module",
-    "type": "juzaweb-module",
     "keywords": [],
     "license": "MIT",
     "authors": [
@@ -11,7 +10,8 @@
         }
     ],
     "require": {
-        "php": "^8.2"
+        "php": "^8.2",
+        "darkaonline/l5-swagger": "^8.6"
     },
     "require-dev": {
         "juzaweb/core": "dev-master",
