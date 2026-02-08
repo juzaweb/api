@@ -9,13 +9,7 @@ class ApiServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        //
-
-        $this->booted(
-            function () {
-                $this->registerMenus();
-            }
-        );
+        $this->registerMenus();
     }
 
     public function register(): void
@@ -29,19 +23,15 @@ class ApiServiceProvider extends ServiceProvider
 
     protected function registerMenus(): void
     {
-        if (File::missing(storage_path('app/installed'))) {
-            return;
-        }
-
         //
     }
 
     protected function registerConfig(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/config.php' => config_path('api.php'),
+            __DIR__ . '/../../config/jw-api.php' => config_path('jw-api.php'),
         ], 'api-config');
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'api');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/jw-api.php', 'jw-api');
     }
 
     protected function registerTranslations(): void
@@ -54,7 +44,7 @@ class ApiServiceProvider extends ServiceProvider
     {
         $viewPath = resource_path('views/modules/api');
 
-        $sourcePath = __DIR__ . '/../src/resources/views';
+        $sourcePath = __DIR__ . '/../resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath
