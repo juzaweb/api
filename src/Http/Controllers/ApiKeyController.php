@@ -23,7 +23,7 @@ class ApiKeyController extends AdminController
 
         $token = $request->user()->createToken($request->input('name'));
 
-        return back()->with(
+        return $this->success(
             [
                 'message' => trans('api::app.created_successfully'),
                 'token' => $token->plainTextToken,
@@ -31,9 +31,9 @@ class ApiKeyController extends AdminController
         );
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, string $id)
     {
-        request()->user()->tokens()->where('id', $id)->delete();
+        $request->user()->tokens()->where('id', $id)->delete();
 
         return response()->json(
             [
