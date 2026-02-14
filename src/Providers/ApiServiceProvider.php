@@ -4,6 +4,7 @@ namespace Juzaweb\Modules\Api\Providers;
 
 use Juzaweb\Modules\Core\Providers\ServiceProvider;
 use Illuminate\Support\Facades\File;
+use Juzaweb\Modules\Core\Facades\Menu;
 
 class ApiServiceProvider extends ServiceProvider
 {
@@ -23,7 +24,16 @@ class ApiServiceProvider extends ServiceProvider
 
     protected function registerMenus(): void
     {
-        //
+        if (config('jw-api.enabled')) {
+            Menu::make('api-keys', function () {
+                return [
+                    'title' => trans('api::app.api_keys'),
+                    'icon' => 'fa fa-key',
+                    'parent' => 'settings',
+                    'position' => 'admin-top-profile',
+                ];
+            });
+        }
     }
 
     protected function registerConfig(): void
