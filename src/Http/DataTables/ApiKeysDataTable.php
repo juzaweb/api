@@ -23,9 +23,9 @@ class ApiKeysDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('name')->title(trans('core::app.name')),
+            Column::make('name')->title(trans('api::app.name')),
             Column::createdAt(),
-            Column::make('last_used_at')->title(trans('core::app.last_used_at')),
+            Column::make('last_used_at')->title(trans('api::app.last_used_at')),
             Column::actions(),
         ];
     }
