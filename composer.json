@@ -15,7 +15,7 @@
         "darkaonline/l5-swagger": "^8.6"
     },
     "require-dev": {
-        "juzaweb/core": "dev-master",
+        "juzaweb/core": "^5.0",
         "orchestra/testbench": "^8.0|^9.0",
         "phpunit/phpunit": "^10.0"
     },
