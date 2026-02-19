@@ -75,7 +75,7 @@ class ApiKeyTest extends TestCase
             'expires_at' => now()->addDays(30),
         ]);
 
-        $this->assertDatabaseHas('jw_api_keys', [
+        $this->assertDatabaseHas('api_keys', [
             'id' => $apiKey->id,
             'user_id' => $user->id,
             'user_type' => get_class($user),
