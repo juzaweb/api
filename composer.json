@@ -1,7 +1,12 @@
 {
     "name": "juzaweb/api",
     "description": "Api Module",
-    "keywords": [],
+    "keywords": [
+        "juzaweb",
+        "api",
+        "module",
+        "laravel"
+    ],
     "license": "GPL-2.0",
     "authors": [
         {
