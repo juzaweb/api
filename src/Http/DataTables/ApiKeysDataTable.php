@@ -3,21 +3,21 @@
 namespace Juzaweb\Modules\Api\Http\DataTables;
 
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Juzaweb\Modules\Api\Models\ApiKey;
 use Juzaweb\Modules\Core\DataTables\DataTable;
 use Juzaweb\Modules\Core\DataTables\Column;
 use Juzaweb\Modules\Core\DataTables\Action;
-use Laravel\Sanctum\PersonalAccessToken;
 use Yajra\DataTables\EloquentDataTable;
 
 class ApiKeysDataTable extends DataTable
 {
     protected string $actionUrl = 'api-keys/bulk';
 
-    public function query(PersonalAccessToken $model): QueryBuilder
+    public function query(ApiKey $model): QueryBuilder
     {
         return $model->newQuery()
-            ->where('tokenable_id', request()->user()->id)
-            ->where('tokenable_type', get_class(request()->user()));
+            ->where('user_id', request()->user()->id)
+            ->where('user_type', get_class(request()->user()));
     }
 
     public function getColumns(): array
