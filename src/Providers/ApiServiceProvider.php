@@ -14,6 +14,7 @@ use Laravel\Passport\Guards\TokenGuard;
 use League\OAuth2\Server\ResourceServer;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Juzaweb\Modules\Api\Models\ApiKey;
+use Juzaweb\Modules\Api\Auth\JuzawebApiGuard;
 
 class ApiServiceProvider extends ServiceProvider
 {
@@ -22,36 +23,18 @@ class ApiServiceProvider extends ServiceProvider
         $this->registerMenus();
 
         Auth::extend('juzaweb', function ($app, $name, array $config) {
-            $guard = new RequestGuard(function ($request) use ($app, $config) {
-                // 1. Check for API Key
-                $apiKey = $request->header('x-api-key');
-                if ($apiKey) {
-                    $keyModel = ApiKey::where('key', $apiKey)->first();
-
-                    if ($keyModel && ! $keyModel->revoked) {
-                        if ($keyModel->expires_at && $keyModel->expires_at->isPast()) {
-                            return null;
-                        }
-
-                        $keyModel->update(['last_used_at' => now()]);
-                        return $keyModel->user;
-                    }
-
-                    return null;
-                }
-
-                // 2. Fallback to Passport
-                return (new TokenGuard(
+            $guard = new RequestGuard(
+                new JuzawebApiGuard(
                     $app->make(ResourceServer::class),
                     new PassportUserProvider(
                         Auth::createUserProvider($config['provider'] ?? null),
                         $config['provider'] ?? 'users'
                     ),
                     $app->make(ClientRepository::class),
-                    $app->make(Encrypter::class),
-                    $request
-                ))->user($request);
-            }, $app['request']);
+                    $app->make(Encrypter::class)
+                ),
+                $app['request']
+            );
 
             $app->refresh('request', $guard, 'setRequest');
 
