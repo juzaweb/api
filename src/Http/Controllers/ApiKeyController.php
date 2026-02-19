@@ -3,8 +3,10 @@
 namespace Juzaweb\Modules\Api\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Juzaweb\Modules\Api\Http\DataTables\ApiKeysDataTable;
 use Juzaweb\Modules\Core\Http\Controllers\AdminController;
+use Juzaweb\Modules\Api\Models\ApiKey;
 
 class ApiKeyController extends AdminController
 {
@@ -21,19 +23,30 @@ class ApiKeyController extends AdminController
             'name' => 'required|string|max:255',
         ]);
 
-        $token = $request->user()->createToken($request->input('name'));
+        $key = ApiKey::generateKey();
+        $model = new ApiKey();
+        $model->fill($request->only(['name']));
+        $model->user_id = $request->user()->id;
+        $model->user_type = get_class($request->user());
+        $model->key = Hash::make($key);
+        $model->save();
 
         return $this->success(
             [
                 'message' => trans('api::app.created_successfully'),
-                'token' => $token->plainTextToken,
+                'token' => $key,
             ]
         );
     }
 
     public function destroy(Request $request, string $id): \Illuminate\Http\JsonResponse
     {
-        $request->user()->tokens()->where('id', $id)->delete();
+        $model = ApiKey::where('id', $id)
+            ->where('user_id', $request->user()->id)
+            ->where('user_type', get_class($request->user()))
+            ->firstOrFail();
+
+        $model->delete();
 
         return response()->json(
             [
