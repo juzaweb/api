@@ -18,6 +18,7 @@ class ApiKey extends Model
         'scopes',
         'revoked',
         'expires_at',
+        'last_used_at',
     ];
 
     protected $casts = [
