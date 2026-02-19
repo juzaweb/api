@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 
 class ApiKey extends Model
 {
+    public ?string $plain_text_key = null;
+
     protected $table = 'api_keys';
 
     protected $fillable = [
@@ -31,6 +33,15 @@ class ApiKey extends Model
     public function user(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    protected static function booted(): void
+    {
+        static::creating(function (ApiKey $model) {
+            $plainTextKey = $model->key ?: Str::random(64);
+            $model->plain_text_key = $plainTextKey;
+            $model->key = hash('sha256', $plainTextKey);
+        });
     }
 
     public static function generateKey(): string
