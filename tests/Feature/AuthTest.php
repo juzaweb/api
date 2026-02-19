@@ -28,8 +28,6 @@ class TestClient extends Client
         'provider',
         'redirect_uris',
         'grant_types',
-        'personal_access_client',
-        'password_client',
         'revoked',
     ];
 
@@ -53,8 +51,6 @@ class AuthTest extends TestCase
             'provider' => 'users',
             'redirect_uris' => ['http://localhost'],
             'grant_types' => ['client_credentials', 'personal_access'],
-            'personal_access_client' => true,
-            'password_client' => false,
             'revoked' => false,
         ]);
 
