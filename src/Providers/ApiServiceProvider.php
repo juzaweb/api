@@ -21,11 +21,6 @@ class ApiServiceProvider extends ServiceProvider
     {
         $this->registerMenus();
 
-        config()->set('auth.guards.juzaweb', [
-            'driver' => 'juzaweb',
-            'provider' => 'users',
-        ]);
-
         Auth::extend('juzaweb', function ($app, $name, array $config) {
             $guard = new RequestGuard(function ($request) use ($app, $config) {
                 // 1. Check for API Key
