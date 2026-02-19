@@ -31,7 +31,7 @@ class ApiKeyController extends AdminController
         );
     }
 
-    public function destroy(Request $request, string $id)
+    public function destroy(Request $request, string $id): \Illuminate\Http\JsonResponse
     {
         $request->user()->tokens()->where('id', $id)->delete();
 
