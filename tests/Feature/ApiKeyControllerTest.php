@@ -2,7 +2,6 @@
 
 namespace Juzaweb\Modules\Api\Tests\Feature;
 
-use Illuminate\Support\Facades\Schema;
 use Juzaweb\Modules\Api\Models\ApiKey;
 use Juzaweb\Modules\Api\Tests\TestCase;
 use Juzaweb\Modules\Core\Models\User;
@@ -31,7 +30,7 @@ class ApiKeyControllerTest extends TestCase
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
         $this->loadMigrationsFrom(__DIR__ . '/../../vendor/juzaweb/core/database/migrations');
 
-        $this->artisan('migrate', ['--database' => 'testbench'])->run();
+        $this->artisan('migrate', ['--database' => config('database.default')])->run();
     }
 
     public function test_it_can_create_api_key_via_api()

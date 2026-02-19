@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class ApiKey extends Model
 {
-    protected $table = 'api_keys';
+    protected $table = 'jw_api_keys';
 
     protected $fillable = [
         'user_id',

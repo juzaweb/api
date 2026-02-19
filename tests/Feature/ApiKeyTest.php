@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Modules\Api\Tests\Unit;
+namespace Juzaweb\Modules\Api\Tests\Feature;
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -75,7 +75,7 @@ class ApiKeyTest extends TestCase
             'expires_at' => now()->addDays(30),
         ]);
 
-        $this->assertDatabaseHas('api_keys', [
+        $this->assertDatabaseHas('jw_api_keys', [
             'id' => $apiKey->id,
             'user_id' => $user->id,
             'user_type' => get_class($user),
