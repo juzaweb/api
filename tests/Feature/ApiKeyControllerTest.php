@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Modules\Api\Tests\Feature;
 
+use Illuminate\Support\Facades\Hash;
 use Juzaweb\Modules\Api\Models\ApiKey;
 use Juzaweb\Modules\Api\Tests\TestCase;
 use Juzaweb\Modules\Core\Models\User;
@@ -42,6 +43,13 @@ class ApiKeyControllerTest extends TestCase
         // 5. Assert the response contains the token
         $json = $response->json();
         $this->assertTrue(isset($json['token']) || isset($json['data']['token']), 'Response should contain token');
+
+        $token = $json['data']['token'] ?? $json['token'];
+        $apiKey = ApiKey::where('name', 'My Test Key')->first();
+
+        // 6. Assert key is hashed
+        $this->assertNotEquals($token, $apiKey->key);
+        $this->assertTrue(Hash::check($token, $apiKey->key));
     }
 
     public function test_index_lists_api_keys_from_table()
