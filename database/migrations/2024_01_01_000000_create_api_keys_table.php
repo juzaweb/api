@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('revoked')->default(false);
             $table->dateTime('expires_at')->nullable();
             $table->timestamp('last_used_at')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
     }
 
