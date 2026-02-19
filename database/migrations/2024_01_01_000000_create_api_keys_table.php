@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('jw_api_keys', function (Blueprint $table) {
             $table->id();
-            $table->uuid('user_id')->index();
+            $table->uuidMorphs('user');
             $table->string('name')->nullable();
             $table->string('key', 64)->unique();
-            $table->json('permissions')->nullable();
+            $table->json('scopes')->nullable();
+            $table->boolean('revoked')->default(false);
+            $table->dateTime('expires_at')->nullable();
             $table->timestamp('last_used_at')->nullable();
             $table->timestamps();
         });

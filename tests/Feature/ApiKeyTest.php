@@ -57,7 +57,6 @@ class ApiKeyTest extends TestCase
     /** @test */
     public function it_can_create_api_key()
     {
-        // Create a dummy user using the Model if possible, or force create
         $user = new User();
         $user->name = 'Test User';
         $user->email = 'test@example.com';
@@ -68,17 +67,25 @@ class ApiKeyTest extends TestCase
 
         $apiKey = ApiKey::create([
             'user_id' => $user->id,
+            'user_type' => get_class($user),
             'name' => 'My API Key',
-            'permissions' => ['read'],
+            'scopes' => ['read'],
             'key' => $keyString,
+            'revoked' => false,
+            'expires_at' => now()->addDays(30),
         ]);
 
         $this->assertDatabaseHas('jw_api_keys', [
             'id' => $apiKey->id,
             'user_id' => $user->id,
+            'user_type' => get_class($user),
             'key' => $keyString,
+            'revoked' => 0,
         ]);
 
-        $this->assertEquals(['read'], $apiKey->permissions);
+        $this->assertEquals(['read'], $apiKey->scopes);
+        $this->assertFalse($apiKey->revoked);
+        $this->assertNotNull($apiKey->expires_at);
+        $this->assertTrue($apiKey->expires_at->isFuture());
     }
 }

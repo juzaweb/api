@@ -3,8 +3,7 @@
 namespace Juzaweb\Modules\Api\Models;
 
 use Juzaweb\Modules\Core\Models\Model;
-use Juzaweb\Modules\Core\Models\User;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Str;
 
 class ApiKey extends Model
@@ -13,19 +12,24 @@ class ApiKey extends Model
 
     protected $fillable = [
         'user_id',
+        'user_type',
         'name',
         'key',
-        'permissions',
+        'scopes',
+        'revoked',
+        'expires_at',
     ];
 
     protected $casts = [
-        'permissions' => 'array',
+        'scopes' => 'array',
+        'revoked' => 'boolean',
+        'expires_at' => 'datetime',
         'last_used_at' => 'datetime',
     ];
 
-    public function user(): BelongsTo
+    public function user(): MorphTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->morphTo();
     }
 
     public static function generateKey(): string
