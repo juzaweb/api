@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Modules\Api\Tests\Feature;
+namespace Juzaweb\Modules\Api\Tests\Unit;
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
