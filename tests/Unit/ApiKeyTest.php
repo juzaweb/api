@@ -79,7 +79,7 @@ class ApiKeyTest extends TestCase
             'id' => $apiKey->id,
             'user_id' => $user->id,
             'user_type' => get_class($user),
-            'key' => $keyString,
+            'key' => hash('sha256', $keyString),
             'revoked' => 0,
         ]);
 
