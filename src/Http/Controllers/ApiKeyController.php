@@ -23,18 +23,16 @@ class ApiKeyController extends AdminController
             'name' => 'required|string|max:255',
         ]);
 
-        $key = ApiKey::generateKey();
         $model = new ApiKey();
         $model->fill($request->only(['name']));
         $model->user_id = $request->user()->id;
         $model->user_type = get_class($request->user());
-        $model->key = Hash::make($key);
         $model->save();
 
         return $this->success(
             [
                 'message' => trans('api::app.created_successfully'),
-                'token' => $key,
+                'token' => $model->plain_text_key,
             ]
         );
     }

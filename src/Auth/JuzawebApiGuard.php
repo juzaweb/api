@@ -25,7 +25,7 @@ class JuzawebApiGuard
         // 1. Check for API Key
         $apiKey = $request->header('x-api-key');
         if ($apiKey) {
-            $keyModel = ApiKey::where('key', $apiKey)->first();
+            $keyModel = ApiKey::where('key', hash('sha256', $apiKey))->first();
 
             if ($keyModel && ! $keyModel->revoked) {
                 if ($keyModel->expires_at && $keyModel->expires_at->isPast()) {

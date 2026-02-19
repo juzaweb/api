@@ -49,7 +49,7 @@ class ApiKeyControllerTest extends TestCase
 
         // 6. Assert key is hashed
         $this->assertNotEquals($token, $apiKey->key);
-        $this->assertTrue(Hash::check($token, $apiKey->key));
+        $this->assertEquals(hash('sha256', $token), $apiKey->key);
     }
 
     public function test_index_lists_api_keys_from_table()
