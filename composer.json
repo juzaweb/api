@@ -11,8 +11,8 @@
     ],
     "require": {
         "php": "^8.2",
-        "laravel/sanctum": "^4.0",
-        "darkaonline/l5-swagger": "^8.6"
+        "darkaonline/l5-swagger": "^8.6",
+        "laravel/passport": "^13.0"
     },
     "require-dev": {
         "juzaweb/core": "^5.0",
