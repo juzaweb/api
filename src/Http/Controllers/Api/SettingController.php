@@ -9,6 +9,16 @@ class SettingController extends Controller
 {
     public function index()
     {
-        return response()->json(Setting::all());
+        $keys = [
+            'title',
+            'description',
+            'sitename',
+            'logo',
+            'favicon',
+            'banner',
+            'language',
+        ];
+
+        return response()->json(Setting::gets($keys));
     }
 }
