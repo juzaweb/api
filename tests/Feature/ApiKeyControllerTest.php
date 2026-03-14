@@ -7,6 +7,9 @@ use Juzaweb\Modules\Api\Models\ApiKey;
 use Juzaweb\Modules\Api\Tests\TestCase;
 use Juzaweb\Modules\Core\Models\User;
 
+/**
+ * @OA\Exclude()
+ */
 class ApiKeyControllerTest extends TestCase
 {
     protected function getEnvironmentSetUp($app): void
