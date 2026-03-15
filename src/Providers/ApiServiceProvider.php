@@ -2,20 +2,16 @@
 
 namespace Juzaweb\Modules\Api\Providers;
 
-use Juzaweb\Modules\Core\Providers\ServiceProvider;
-use Illuminate\Support\Facades\File;
-use Juzaweb\Modules\Core\Facades\Menu;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Illuminate\Auth\RequestGuard;
+use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Support\Facades\Auth;
+use Juzaweb\Modules\Api\Auth\JuzawebApiGuard;
+use Juzaweb\Modules\Core\Facades\Menu;
+use Juzaweb\Modules\Core\Providers\ServiceProvider;
 use Laravel\Passport\ClientRepository;
 use Laravel\Passport\Passport;
 use Laravel\Passport\PassportUserProvider;
-use Laravel\Passport\Guards\TokenGuard;
 use League\OAuth2\Server\ResourceServer;
-use Illuminate\Contracts\Encryption\Encrypter;
-use Juzaweb\Modules\Api\Models\ApiKey;
-use Juzaweb\Modules\Api\Auth\JuzawebApiGuard;
 
 class ApiServiceProvider extends ServiceProvider
 {
@@ -56,7 +52,7 @@ class ApiServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
-        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
         $this->app->register(RouteServiceProvider::class);
     }
 
@@ -77,22 +73,22 @@ class ApiServiceProvider extends ServiceProvider
     protected function registerConfig(): void
     {
         $this->publishes([
-            __DIR__ . '/../../config/jw-api.php' => config_path('jw-api.php'),
+            __DIR__.'/../../config/jw-api.php' => config_path('jw-api.php'),
         ], 'api-config');
-        $this->mergeConfigFrom(__DIR__ . '/../../config/jw-api.php', 'jw-api');
+        $this->mergeConfigFrom(__DIR__.'/../../config/jw-api.php', 'jw-api');
     }
 
     protected function registerTranslations(): void
     {
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'api');
-        $this->loadJsonTranslationsFrom(__DIR__ . '/../resources/lang');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'api');
+        $this->loadJsonTranslationsFrom(__DIR__.'/../resources/lang');
     }
 
     protected function registerViews(): void
     {
         $viewPath = resource_path('views/modules/api');
 
-        $sourcePath = __DIR__ . '/../resources/views';
+        $sourcePath = __DIR__.'/../resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath
