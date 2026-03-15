@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 
 use Juzaweb\Modules\Api\Http\Controllers\Api\SettingController;
+use Juzaweb\Modules\Api\Http\Controllers\Api\TranslationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,4 @@ use Juzaweb\Modules\Api\Http\Controllers\Api\SettingController;
 */
 
 Route::get('settings', [SettingController::class, 'index']);
+Route::get('translations/{locale}', [TranslationController::class, 'index']);
