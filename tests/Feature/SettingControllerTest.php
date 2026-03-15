@@ -11,13 +11,15 @@ class SettingControllerTest extends TestCase
         $response = $this->getJson('api/v1/settings');
         $response->assertStatus(200);
         $response->assertJsonStructure([
-            'title',
-            'description',
-            'sitename',
-            'logo',
-            'favicon',
-            'banner',
-            'language',
+            'data' => [
+                'title',
+                'description',
+                'sitename',
+                'logo',
+                'favicon',
+                'banner',
+                'language',
+            ]
         ]);
     }
 }
