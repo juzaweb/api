@@ -62,7 +62,7 @@ class TranslationController extends APIController
             ->filter(
                 function ($module, $key) use ($enabledModules, $themeKey) {
                     if ($module['type'] === 'module') {
-                        return $key === 'admin' || in_array($key, $enabledModules);
+                        return false;
                     }
 
                     if ($module['type'] === 'theme') {
