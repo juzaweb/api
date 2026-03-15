@@ -2,11 +2,39 @@
 
 namespace Juzaweb\Modules\Api\Http\Controllers\Api;
 
-use Illuminate\Routing\Controller;
 use Juzaweb\Modules\Core\Facades\Setting;
+use Juzaweb\Modules\Core\Http\Controllers\APIController;
+use OpenApi\Annotations as OA;
 
-class SettingController extends Controller
+class SettingController extends APIController
 {
+    /**
+     * @OA\Get(
+     *      path="/api/v1/settings",
+     *      tags={"Settings"},
+     *      summary="Get site settings",
+     *      description="Returns key-value pairs of public site settings such as title, logo, language, etc.",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @OA\Property(property="title", type="string", example="My Site"),
+     *                  @OA\Property(property="description", type="string", example="Site description"),
+     *                  @OA\Property(property="sitename", type="string", example="mysite"),
+     *                  @OA\Property(property="logo", type="string", example="https://example.com/logo.png"),
+     *                  @OA\Property(property="favicon", type="string", example="https://example.com/favicon.ico"),
+     *                  @OA\Property(property="banner", type="string", example="https://example.com/banner.jpg"),
+     *                  @OA\Property(property="language", type="string", example="en")
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(response=500, description="Server error", ref="#/components/responses/error_500")
+     * )
+     */
     public function index(): \Illuminate\Http\JsonResponse
     {
         $keys = apply_filters(
@@ -22,6 +50,6 @@ class SettingController extends Controller
             ]
         );
 
-        return response()->json(Setting::gets($keys));
+        return $this->restSuccess(Setting::gets($keys));
     }
 }
