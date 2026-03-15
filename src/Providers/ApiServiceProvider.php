@@ -23,9 +23,7 @@ class ApiServiceProvider extends ServiceProvider
         Passport::refreshTokensExpireIn(now()->addDays(30));
         Passport::personalAccessTokensExpireIn(now()->addMonths(6));
 
-        // Passport::authorizationsFor(function ($request) {
-        //     return view('passport::authorize');
-        // });
+        // Passport::viewPrefix('api::');
 
         Auth::extend('juzaweb', function ($app, $name, array $config) {
             $guard = new RequestGuard(
