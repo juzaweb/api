@@ -4,6 +4,7 @@ namespace Juzaweb\Modules\Api\Http\Controllers\Api;
 
 use Juzaweb\Modules\Core\Facades\Setting;
 use Juzaweb\Modules\Core\Http\Controllers\APIController;
+use Juzaweb\Modules\Core\Translations\Models\Language;
 use OpenApi\Annotations as OA;
 
 class SettingController extends APIController
@@ -28,7 +29,17 @@ class SettingController extends APIController
      *                  @OA\Property(property="logo", type="string", example="https://example.com/logo.png"),
      *                  @OA\Property(property="favicon", type="string", example="https://example.com/favicon.ico"),
      *                  @OA\Property(property="banner", type="string", example="https://example.com/banner.jpg"),
-     *                  @OA\Property(property="language", type="string", example="en")
+     *                  @OA\Property(property="language", type="string", example="en"),
+     *                  @OA\Property(
+     *                      property="languages",
+     *                      type="object",
+     *                      description="Available languages with code as key and name as value",
+     *                      example={"en": "English", "vi": "Vietnamese", "ja": "Japanese"},
+     *                      @OA\AdditionalProperties(
+     *                          type="string",
+     *                          description="Language name, e.g. English, Vietnamese, Japanese"
+     *                      )
+     *                  )
      *              )
      *          )
      *      ),
@@ -50,6 +61,13 @@ class SettingController extends APIController
             ]
         );
 
-        return $this->restSuccess(Setting::gets($keys));
+        return $this->restSuccess(
+            [
+                ...Setting::gets($keys),
+                'languages' => Language::languages()->mapWithKeys(function ($item) {
+                    return [$item->code => $item->name];
+                })->toArray(),
+            ]
+        );
     }
 }
