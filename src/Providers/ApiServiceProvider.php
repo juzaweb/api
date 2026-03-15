@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Auth\RequestGuard;
 use Laravel\Passport\ClientRepository;
+use Laravel\Passport\Passport;
 use Laravel\Passport\PassportUserProvider;
 use Laravel\Passport\Guards\TokenGuard;
 use League\OAuth2\Server\ResourceServer;
@@ -21,6 +22,14 @@ class ApiServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerMenus();
+
+        Passport::tokensExpireIn(now()->addDays(15));
+        Passport::refreshTokensExpireIn(now()->addDays(30));
+        Passport::personalAccessTokensExpireIn(now()->addMonths(6));
+
+        // Passport::authorizationsFor(function ($request) {
+        //     return view('passport::authorize');
+        // });
 
         Auth::extend('juzaweb', function ($app, $name, array $config) {
             $guard = new RequestGuard(
