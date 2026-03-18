@@ -1,9 +1,9 @@
 <?php
 
-use Juzaweb\Modules\Api\Http\Controllers\Api\Pages\PageController;
-use Juzaweb\Modules\Api\Http\Controllers\Api\ProfileController;
-use Juzaweb\Modules\Api\Http\Controllers\Api\SettingController;
-use Juzaweb\Modules\Api\Http\Controllers\Api\TranslationController;
+use Juzaweb\Modules\Api\Http\Controllers\API\Pages\PageController;
+use Juzaweb\Modules\Api\Http\Controllers\API\ProfileController;
+use Juzaweb\Modules\Api\Http\Controllers\API\SettingController;
+use Juzaweb\Modules\Api\Http\Controllers\API\TranslationController;
 
 /*
 |--------------------------------------------------------------------------
