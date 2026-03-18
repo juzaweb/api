@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Modules\Api\Http\Controllers\Api\Pages;
+namespace Juzaweb\Modules\Api\Http\Controllers\API\Pages;
 
 use Illuminate\Http\JsonResponse;
 use Juzaweb\Modules\Api\Http\Resources\Pages\PageResource;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Modules\Api\Tests\Feature\Api;
+namespace Juzaweb\Modules\Api\Tests\Feature\API;
 
 use Juzaweb\Modules\Api\Models\ApiKey;
 use Juzaweb\Modules\Api\Tests\TestCase;
