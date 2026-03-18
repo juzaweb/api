@@ -21,6 +21,7 @@
     },
     "require-dev": {
         "juzaweb/core": "^5.0",
+        "laravel/pint": "dev-main",
         "orchestra/testbench": "^8.0|^9.0",
         "phpunit/phpunit": "^10.0"
     },

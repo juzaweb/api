@@ -2,9 +2,9 @@
 
 namespace Juzaweb\Modules\Api\Models;
 
-use Juzaweb\Modules\Core\Models\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Str;
+use Juzaweb\Modules\Core\Models\Model;
 
 class ApiKey extends Model
 {

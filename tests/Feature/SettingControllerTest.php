@@ -6,7 +6,7 @@ use Juzaweb\Modules\Api\Tests\TestCase;
 
 class SettingControllerTest extends TestCase
 {
-    public function testIndexReturnsSettings()
+    public function test_index_returns_settings()
     {
         $response = $this->getJson('api/v1/settings');
         $response->assertStatus(200);
@@ -19,7 +19,7 @@ class SettingControllerTest extends TestCase
                 'favicon',
                 'banner',
                 'language',
-            ]
+            ],
         ]);
     }
 }

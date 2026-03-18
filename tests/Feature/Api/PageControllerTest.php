@@ -2,21 +2,20 @@
 
 namespace Juzaweb\Modules\Api\Tests\Feature\Api;
 
-use Juzaweb\Modules\Core\Models\Pages\Page;
 use Juzaweb\Modules\Api\Tests\TestCase;
-use Illuminate\Support\Str;
+use Juzaweb\Modules\Core\Models\Pages\Page;
 
 class PageControllerTest extends TestCase
 {
     protected function defineDatabaseMigrations(): void
     {
         parent::defineDatabaseMigrations();
-        $this->loadMigrationsFrom(__DIR__ . '/../../../vendor/juzaweb/core/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../../../vendor/juzaweb/core/database/migrations');
     }
 
-    public function testShow()
+    public function test_show()
     {
-        $page = new Page();
+        $page = new Page;
         $page->fill([
             'title' => 'Test Page',
             'slug' => 'test-page',

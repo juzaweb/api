@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 use Juzaweb\Modules\Api\Models\ApiKey;
 use Juzaweb\Modules\Api\Tests\TestCase;
 use Juzaweb\Modules\Core\Models\User;
+use Laravel\Passport\ClientRepository;
+use Laravel\Passport\PassportServiceProvider;
+use League\OAuth2\Server\ResourceServer;
 
 class JuzawebApiGuardTest extends TestCase
 {
@@ -22,7 +25,8 @@ class JuzawebApiGuardTest extends TestCase
     protected function getPackageProviders($app): array
     {
         $providers = parent::getPackageProviders($app);
-        $providers[] = \Laravel\Passport\PassportServiceProvider::class;
+        $providers[] = PassportServiceProvider::class;
+
         return $providers;
     }
 
@@ -30,8 +34,8 @@ class JuzawebApiGuardTest extends TestCase
     {
         parent::setUp();
 
-        $this->mock(\League\OAuth2\Server\ResourceServer::class);
-        $this->mock(\Laravel\Passport\ClientRepository::class);
+        $this->mock(ResourceServer::class);
+        $this->mock(ClientRepository::class);
 
         // Define a route for testing
         Route::middleware('auth:juzaweb')->get('/test-auth', function () {

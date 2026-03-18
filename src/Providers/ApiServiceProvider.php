@@ -89,7 +89,7 @@ class ApiServiceProvider extends ServiceProvider
         $sourcePath = __DIR__.'/../resources/views';
 
         $this->publishes([
-            $sourcePath => $viewPath
+            $sourcePath => $viewPath,
         ], ['views', 'api-module-views']);
 
         $this->loadViewsFrom($sourcePath, 'api');
