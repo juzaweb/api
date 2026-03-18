@@ -3,10 +3,10 @@
 namespace Juzaweb\Modules\Api\Http\DataTables;
 
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Juzaweb\Modules\Core\DataTables\DataTable;
-use Juzaweb\Modules\Core\DataTables\Column;
-use Juzaweb\Modules\Core\DataTables\Action;
 use Juzaweb\Modules\Api\Models\ApiKey;
+use Juzaweb\Modules\Core\DataTables\Action;
+use Juzaweb\Modules\Core\DataTables\Column;
+use Juzaweb\Modules\Core\DataTables\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
 class ApiKeysDataTable extends DataTable

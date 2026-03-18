@@ -2,7 +2,6 @@
 
 namespace Juzaweb\Modules\Api\Tests\Feature;
 
-use Illuminate\Support\Facades\Hash;
 use Juzaweb\Modules\Api\Models\ApiKey;
 use Juzaweb\Modules\Api\Tests\TestCase;
 use Juzaweb\Modules\Core\Models\User;
@@ -61,7 +60,7 @@ class ApiKeyControllerTest extends TestCase
         $this->actingAs($user, 'admin');
 
         // Create a key in the api_keys table manually
-        $apiKey = new ApiKey();
+        $apiKey = new ApiKey;
         $apiKey->fill([
             'name' => 'Existing Key',
         ]);
@@ -84,7 +83,7 @@ class ApiKeyControllerTest extends TestCase
         $user = User::factory()->create(['is_super_admin' => 1]);
         $this->actingAs($user, 'admin');
 
-        $apiKey = new ApiKey();
+        $apiKey = new ApiKey;
         $apiKey->fill([
             'name' => 'Key to Delete',
         ]);

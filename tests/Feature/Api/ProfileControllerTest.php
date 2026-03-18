@@ -2,9 +2,12 @@
 
 namespace Juzaweb\Modules\Api\Tests\Feature\Api;
 
+use Juzaweb\Modules\Api\Models\ApiKey;
 use Juzaweb\Modules\Api\Tests\TestCase;
 use Juzaweb\Modules\Core\Models\User;
-use Juzaweb\Modules\Api\Models\ApiKey;
+use Laravel\Passport\ClientRepository;
+use Laravel\Passport\PassportServiceProvider;
+use League\OAuth2\Server\ResourceServer;
 
 class ProfileControllerTest extends TestCase
 {
@@ -26,7 +29,8 @@ class ProfileControllerTest extends TestCase
     protected function getPackageProviders($app): array
     {
         $providers = parent::getPackageProviders($app);
-        $providers[] = \Laravel\Passport\PassportServiceProvider::class;
+        $providers[] = PassportServiceProvider::class;
+
         return $providers;
     }
 
@@ -34,11 +38,11 @@ class ProfileControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->mock(\League\OAuth2\Server\ResourceServer::class);
-        $this->mock(\Laravel\Passport\ClientRepository::class);
+        $this->mock(ResourceServer::class);
+        $this->mock(ClientRepository::class);
     }
 
-    public function testShowReturnsUserProfile()
+    public function test_show_returns_user_profile()
     {
         $user = User::factory()->create();
 
@@ -57,11 +61,11 @@ class ProfileControllerTest extends TestCase
             'data' => [
                 'id' => $user->id,
                 'email' => $user->email,
-            ]
+            ],
         ]);
     }
 
-    public function testShowReturnsUnauthorizedForGuest()
+    public function test_show_returns_unauthorized_for_guest()
     {
         $response = $this->getJson('api/v1/profile');
 

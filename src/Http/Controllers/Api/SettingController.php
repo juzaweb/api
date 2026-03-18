@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Modules\Api\Http\Controllers\Api;
 
+use Illuminate\Http\JsonResponse;
 use Juzaweb\Modules\Core\Facades\Setting;
 use Juzaweb\Modules\Core\Http\Controllers\APIController;
 use Juzaweb\Modules\Core\Translations\Models\Language;
@@ -15,11 +16,14 @@ class SettingController extends APIController
      *      tags={"Settings"},
      *      summary="Get site settings",
      *      description="Returns key-value pairs of public site settings such as title, logo, language, etc.",
+     *
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *
      *          @OA\JsonContent(
      *              type="object",
+     *
      *              @OA\Property(
      *                  property="data",
      *                  type="object",
@@ -35,6 +39,7 @@ class SettingController extends APIController
      *                      type="object",
      *                      description="Available languages with code as key and name as value",
      *                      example={"en": "English", "vi": "Vietnamese", "ja": "Japanese"},
+     *
      *                      @OA\AdditionalProperties(
      *                          type="string",
      *                          description="Language name, e.g. English, Vietnamese, Japanese"
@@ -43,10 +48,11 @@ class SettingController extends APIController
      *              )
      *          )
      *      ),
+     *
      *      @OA\Response(response=500, description="Server error", ref="#/components/responses/error_500")
      * )
      */
-    public function index(): \Illuminate\Http\JsonResponse
+    public function index(): JsonResponse
     {
         $keys = apply_filters(
             'jw_api_setting_keys',

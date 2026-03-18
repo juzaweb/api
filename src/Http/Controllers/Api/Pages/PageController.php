@@ -15,12 +15,15 @@ class PageController extends APIController
      *      path="/api/v1/pages/{slug}",
      *      tags={"Pages"},
      *      summary="Get page details by slug",
+     *
      *      @OA\Parameter(
      *          name="slug",
      *          in="path",
      *          required=true,
+     *
      *          @OA\Schema(type="string")
      *      ),
+     *
      *      @OA\Response(response=200, description="Successful operation"),
      *      @OA\Response(response=404, description="Page not found")
      * )

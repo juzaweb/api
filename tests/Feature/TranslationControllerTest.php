@@ -6,7 +6,7 @@ use Juzaweb\Modules\Api\Tests\TestCase;
 
 class TranslationControllerTest extends TestCase
 {
-    public function testIndexReturnsTranslationsInI18nFormat(): void
+    public function test_index_returns_translations_in_i18n_format(): void
     {
         $response = $this->getJson('api/v1/translations/en');
 
@@ -27,7 +27,7 @@ class TranslationControllerTest extends TestCase
         }
     }
 
-    public function testIndexReturnsEmptyDataForUnknownLocale(): void
+    public function test_index_returns_empty_data_for_unknown_locale(): void
     {
         $response = $this->getJson('api/v1/translations/xx');
 

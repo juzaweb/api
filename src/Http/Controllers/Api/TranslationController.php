@@ -13,8 +13,7 @@ use OpenApi\Annotations as OA;
 
 class TranslationController extends APIController
 {
-    public function __construct(protected TranslationContract $translationManager)
-    {}
+    public function __construct(protected TranslationContract $translationManager) {}
 
     /**
      * @OA\Get(
@@ -22,18 +21,23 @@ class TranslationController extends APIController
      *      tags={"Translations"},
      *      summary="Get i18n translation strings",
      *      description="Returns all translation key-value pairs for the given locale in i18n flat format (namespace::group.key => value).",
+     *
      *      @OA\Parameter(
      *          name="locale",
      *          in="path",
      *          required=true,
      *          description="Locale code, e.g. en, vi, ja",
+     *
      *          @OA\Schema(type="string", example="en")
      *      ),
+     *
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *
      *          @OA\JsonContent(
      *              type="object",
+     *
      *              @OA\Property(property="success", type="boolean", example=true),
      *              @OA\Property(
      *                  property="data",
@@ -43,6 +47,7 @@ class TranslationController extends APIController
      *              )
      *          )
      *      ),
+     *
      *      @OA\Response(response=500, description="Server error", ref="#/components/responses/error_500")
      * )
      */
@@ -56,11 +61,11 @@ class TranslationController extends APIController
     private function buildTranslationCollection(string $locale): Collection
     {
         $enabledModules = $this->getEnabledModuleAliases();
-        $themeKey       = $this->getCurrentThemeKey();
+        $themeKey = $this->getCurrentThemeKey();
 
         $collection = $this->translationManager->modules()
             ->filter(
-                function ($module, $key) use ($enabledModules, $themeKey) {
+                function ($module, $key) use ($themeKey) {
                     if ($module['type'] === 'module') {
                         return false;
                     }
@@ -78,20 +83,22 @@ class TranslationController extends APIController
                         ->translationLines($locale)
                         ->map(function ($item) use ($module) {
                             $item['namespace'] = $module['namespace'] ?? '*';
+
                             return $item;
                         });
                 }
             )
-            ->filter(fn($item) => $item->isNotEmpty())
+            ->filter(fn ($item) => $item->isNotEmpty())
             ->flatten(1);
 
         $langs = LanguageLine::get()
-            ->keyBy(fn($item) => "{$item->namespace}-{$item->group}-{$item->key}");
+            ->keyBy(fn ($item) => "{$item->namespace}-{$item->group}-{$item->key}");
 
         return $collection->map(
             function ($item) use ($langs, $locale) {
                 $dbLine = $langs->get("{$item['namespace']}-{$item['group']}-{$item['key']}");
                 $item['trans'] = ($dbLine?->text[$locale] ?? null) ?? $item['trans'];
+
                 return $item;
             }
         );
@@ -101,7 +108,7 @@ class TranslationController extends APIController
     {
         try {
             return collect(Module::allEnabled())
-                ->map(fn($m) => method_exists($m, 'getAliasName') ? $m->getAliasName() : null)
+                ->map(fn ($m) => method_exists($m, 'getAliasName') ? $m->getAliasName() : null)
                 ->filter()
                 ->values()
                 ->toArray();
@@ -114,6 +121,7 @@ class TranslationController extends APIController
     {
         try {
             $theme = Theme::current();
+
             return method_exists($theme, 'lowerName') ? $theme->lowerName() : null;
         } catch (\Throwable) {
             return null;
@@ -137,9 +145,9 @@ class TranslationController extends APIController
         return $items
             ->mapWithKeys(function ($item) {
                 $namespace = $item['namespace'] ?? '*';
-                $group     = $item['group']     ?? '*';
-                $key       = $item['key']       ?? '';
-                $trans     = $item['trans']     ?? '';
+                $group = $item['group'] ?? '*';
+                $key = $item['key'] ?? '';
+                $trans = $item['trans'] ?? '';
 
                 // Build the group prefix (empty when group is the special wildcard '*')
                 $groupPrefix = ($group !== '*') ? "{$group}." : '';

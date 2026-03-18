@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
-
-use Juzaweb\Modules\Api\Http\Controllers\Api\SettingController;
-use Juzaweb\Modules\Api\Http\Controllers\Api\TranslationController;
 use Juzaweb\Modules\Api\Http\Controllers\Api\Pages\PageController;
 use Juzaweb\Modules\Api\Http\Controllers\Api\ProfileController;
+use Juzaweb\Modules\Api\Http\Controllers\Api\SettingController;
+use Juzaweb\Modules\Api\Http\Controllers\Api\TranslationController;
 
 /*
 |--------------------------------------------------------------------------

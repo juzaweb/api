@@ -2,11 +2,11 @@
 
 namespace Juzaweb\Modules\Api\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Juzaweb\Modules\Api\Http\DataTables\ApiKeysDataTable;
-use Juzaweb\Modules\Core\Http\Controllers\AdminController;
 use Juzaweb\Modules\Api\Models\ApiKey;
+use Juzaweb\Modules\Core\Http\Controllers\AdminController;
 
 class ApiKeyController extends AdminController
 {
@@ -23,7 +23,7 @@ class ApiKeyController extends AdminController
             'name' => 'required|string|max:255',
         ]);
 
-        $model = new ApiKey();
+        $model = new ApiKey;
         $model->fill($request->only(['name']));
         $model->user_id = $request->user()->id;
         $model->user_type = get_class($request->user());
@@ -37,7 +37,7 @@ class ApiKeyController extends AdminController
         );
     }
 
-    public function destroy(Request $request, string $id): \Illuminate\Http\JsonResponse
+    public function destroy(Request $request, string $id): JsonResponse
     {
         $model = ApiKey::where('id', $id)
             ->where('user_id', $request->user()->id)

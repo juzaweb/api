@@ -4,9 +4,13 @@ namespace Juzaweb\Modules\Api\Tests\Unit;
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Juzaweb\Hooks\HooksServiceProvider;
 use Juzaweb\Modules\Api\Models\ApiKey;
 use Juzaweb\Modules\Api\Providers\ApiServiceProvider;
+use Juzaweb\Modules\Core\Facades\Theme;
 use Juzaweb\Modules\Core\Models\User;
+use Juzaweb\Modules\Core\Providers\CoreServiceProvider;
+use Juzaweb\QueryCache\QueryCacheServiceProvider;
 use Orchestra\Testbench\TestCase;
 
 class ApiKeyTest extends TestCase
@@ -14,9 +18,9 @@ class ApiKeyTest extends TestCase
     protected function getPackageProviders($app)
     {
         return [
-            \Juzaweb\QueryCache\QueryCacheServiceProvider::class,
-            \Juzaweb\Hooks\HooksServiceProvider::class,
-            \Juzaweb\Modules\Core\Providers\CoreServiceProvider::class,
+            QueryCacheServiceProvider::class,
+            HooksServiceProvider::class,
+            CoreServiceProvider::class,
             ApiServiceProvider::class,
         ];
     }
@@ -24,7 +28,7 @@ class ApiKeyTest extends TestCase
     protected function getPackageAliases($app)
     {
         return [
-            'Theme' => \Juzaweb\Modules\Core\Facades\Theme::class,
+            'Theme' => Theme::class,
         ];
     }
 
@@ -32,15 +36,15 @@ class ApiKeyTest extends TestCase
     {
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
     }
 
     protected function defineDatabaseMigrations()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
@@ -57,7 +61,7 @@ class ApiKeyTest extends TestCase
     /** @test */
     public function it_can_create_api_key()
     {
-        $user = new User();
+        $user = new User;
         $user->name = 'Test User';
         $user->email = 'test@example.com';
         $user->password = 'password';

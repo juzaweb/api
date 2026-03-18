@@ -17,8 +17,7 @@ class JuzawebApiGuard
         protected PassportUserProvider $provider,
         protected ClientRepository $clients,
         protected Encrypter $encrypter
-    ) {
-    }
+    ) {}
 
     public function __invoke(Request $request)
     {
@@ -33,6 +32,7 @@ class JuzawebApiGuard
                 }
 
                 $keyModel->update(['last_used_at' => now()]);
+
                 return $keyModel->user;
             }
 
