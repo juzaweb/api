@@ -10,6 +10,23 @@ use Juzaweb\Modules\Api\Http\Requests\Profile\UpdateProfileRequest;
 use Juzaweb\Modules\Core\Http\Controllers\APIController;
 use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ *     schema="User",
+ *     type="object",
+ *     title="User",
+ *     description="User model",
+ *
+ *     @OA\Property(property="id", type="string", format="uuid", example="123e4567-e89b-12d3-a456-426614174000"),
+ *     @OA\Property(property="name", type="string", example="John Doe"),
+ *     @OA\Property(property="email", type="string", format="email", example="john@example.com"),
+ *     @OA\Property(property="birthday", type="string", format="date", example="1990-01-01"),
+ *     @OA\Property(property="status", type="string", example="active"),
+ *     @OA\Property(property="avatar", type="string", example="https://example.com/avatar.jpg"),
+ *     @OA\Property(property="created_at", type="string", format="date-time", example="2023-01-01T00:00:00.000000Z"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time", example="2023-01-01T00:00:00.000000Z")
+ * )
+ */
 class ProfileController extends APIController
 {
     /**
@@ -27,7 +44,7 @@ class ProfileController extends APIController
      *          @OA\JsonContent(
      *              type="object",
      *
-     *              @OA\Property(property="data", type="object")
+     *              @OA\Property(property="data", ref="#/components/schemas/User")
      *          )
      *      ),
      *
@@ -68,7 +85,7 @@ class ProfileController extends APIController
      *          @OA\JsonContent(
      *              type="object",
      *
-     *              @OA\Property(property="data", type="object")
+     *              @OA\Property(property="data", ref="#/components/schemas/User")
      *          )
      *      ),
      *
