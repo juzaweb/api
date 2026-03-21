@@ -2,7 +2,6 @@
 
 namespace Juzaweb\Modules\Api\Tests\Feature;
 
-use Juzaweb\Modules\Api\Models\ApiKey;
 use Juzaweb\Modules\Api\Tests\TestCase;
 use Juzaweb\Modules\Core\Models\User;
 
@@ -11,19 +10,18 @@ class GenerateApiKeyCommandTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->loadMigrationsFrom(__DIR__ . '/../../vendor/juzaweb/core/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../../vendor/juzaweb/core/database/migrations');
     }
 
     public function test_can_generate_api_key_for_existing_user()
     {
         $user = User::factory()->create([
             'email' => 'test@example.com',
-            'name' => 'Test User'
+            'name' => 'Test User',
         ]);
 
         $this->artisan('api-key:generate', [
             '--email' => 'test@example.com',
-            '--name' => 'My API Key'
         ])
             ->expectsOutputToContain('API Key generated successfully for user Test User (test@example.com)')
             ->expectsOutputToContain('API Key: ')
@@ -32,7 +30,7 @@ class GenerateApiKeyCommandTest extends TestCase
         $this->assertDatabaseHas('api_keys', [
             'user_id' => $user->id,
             'user_type' => User::class,
-            'name' => 'My API Key',
+            'name' => 'Default API Key',
         ]);
     }
 

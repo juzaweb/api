@@ -18,17 +18,16 @@ class GenerateApiKeyCommand extends Command
         $email = $this->option('email') ?? $this->ask('User Email?');
 
         $user = User::where('email', $email)->first();
-        if (!$user) {
+        if (! $user) {
             $this->error('User not found.');
+
             return self::FAILURE;
         }
-
-        $name = $this->option('name') ?? $this->ask('API Key Name? (Optional)', 'Default API Key');
 
         $apiKey = ApiKey::create([
             'user_id' => $user->id,
             'user_type' => User::class,
-            'name' => $name,
+            'name' => 'Default API Key',
             'scopes' => [],
         ]);
 
@@ -42,7 +41,6 @@ class GenerateApiKeyCommand extends Command
     {
         return [
             ['email', null, InputOption::VALUE_OPTIONAL, 'The email of the user.'],
-            ['name', null, InputOption::VALUE_OPTIONAL, 'The name of the API Key.'],
         ];
     }
 }

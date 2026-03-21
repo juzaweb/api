@@ -6,6 +6,7 @@ use Illuminate\Auth\RequestGuard;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Support\Facades\Auth;
 use Juzaweb\Modules\Api\Auth\JuzawebApiGuard;
+use Juzaweb\Modules\Api\Commands\GenerateApiKeyCommand;
 use Juzaweb\Modules\Core\Facades\Menu;
 use Juzaweb\Modules\Core\Providers\ServiceProvider;
 use Laravel\Passport\ClientRepository;
@@ -45,7 +46,7 @@ class ApiServiceProvider extends ServiceProvider
         });
 
         $this->commands([
-            \Juzaweb\Modules\Api\Commands\GenerateApiKeyCommand::class,
+            GenerateApiKeyCommand::class,
         ]);
     }
 
