@@ -43,6 +43,10 @@ class ApiServiceProvider extends ServiceProvider
 
             return $guard;
         });
+
+        $this->commands([
+            \Juzaweb\Modules\Api\Commands\GenerateApiKeyCommand::class,
+        ]);
     }
 
     public function register(): void
