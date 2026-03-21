@@ -1,5 +1,6 @@
 <?php
 
+use Juzaweb\Modules\Api\Http\Controllers\API\NotificationController;
 use Juzaweb\Modules\Api\Http\Controllers\API\Pages\PageController;
 use Juzaweb\Modules\Api\Http\Controllers\API\ProfileController;
 use Juzaweb\Modules\Api\Http\Controllers\API\SettingController;
@@ -24,4 +25,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('profile', [ProfileController::class, 'show']);
     Route::put('profile', [ProfileController::class, 'update']);
     Route::put('profile/password', [ProfileController::class, 'updatePassword']);
+
+    Route::get('notifications', [NotificationController::class, 'index']);
 });
