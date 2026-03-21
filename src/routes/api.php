@@ -22,4 +22,6 @@ Route::get('pages/{slug}', [PageController::class, 'show']);
 
 Route::middleware('auth:api')->group(function () {
     Route::get('profile', [ProfileController::class, 'show']);
+    Route::put('profile', [ProfileController::class, 'update']);
+    Route::put('profile/password', [ProfileController::class, 'updatePassword']);
 });
