@@ -19,6 +19,8 @@ class SettingControllerTest extends TestCase
                 'favicon',
                 'banner',
                 'language',
+                'captcha',
+                'captcha_site_key',
             ],
         ]);
     }

@@ -34,6 +34,8 @@ class SettingController extends APIController
      *                  @OA\Property(property="favicon", type="string", example="https://example.com/favicon.ico"),
      *                  @OA\Property(property="banner", type="string", example="https://example.com/banner.jpg"),
      *                  @OA\Property(property="language", type="string", example="en"),
+     *                  @OA\Property(property="captcha", type="string", example="recaptcha"),
+     *                  @OA\Property(property="captcha_site_key", type="string", example="site_key"),
      *                  @OA\Property(
      *                      property="languages",
      *                      type="object",
@@ -64,6 +66,8 @@ class SettingController extends APIController
                 'favicon',
                 'banner',
                 'language',
+                'captcha',
+                'captcha_site_key',
             ]
         );
 
