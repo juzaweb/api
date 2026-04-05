@@ -47,10 +47,12 @@ class SettingController extends APIController
      *                          description="Language name, e.g. English, Vietnamese, Japanese"
      *                      )
      *                  ),
+     *
      *                  @OA\Property(
      *                      property="social_logins",
      *                      type="array",
      *                      description="Available social logins",
+     *
      *                      @OA\Items(type="string", example="google")
      *                  )
      *              )
@@ -84,7 +86,7 @@ class SettingController extends APIController
                     return get_config("social_{$key}_enable");
                 }
 
-                return !empty(Setting::gets(["social_{$key}_enable"])["social_{$key}_enable"]);
+                return ! empty(Setting::gets(["social_{$key}_enable"])["social_{$key}_enable"]);
             })
             ->values()
             ->toArray();
