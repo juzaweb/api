@@ -21,6 +21,7 @@ class SettingControllerTest extends TestCase
                 'language',
                 'captcha',
                 'captcha_site_key',
+                'social_logins',
             ],
         ]);
     }

@@ -46,6 +46,14 @@ class SettingController extends APIController
      *                          type="string",
      *                          description="Language name, e.g. English, Vietnamese, Japanese"
      *                      )
+     *                  ),
+     *
+     *                  @OA\Property(
+     *                      property="social_logins",
+     *                      type="array",
+     *                      description="Available social logins",
+     *
+     *                      @OA\Items(type="string", example="google")
      *                  )
      *              )
      *          )
@@ -71,12 +79,25 @@ class SettingController extends APIController
             ]
         );
 
+        $socialLogins = collect(config('core.social_login.providers', []))
+            ->keys()
+            ->filter(function ($key) {
+                if (function_exists('get_config')) {
+                    return get_config("social_{$key}_enable");
+                }
+
+                return ! empty(Setting::gets(["social_{$key}_enable"])["social_{$key}_enable"]);
+            })
+            ->values()
+            ->toArray();
+
         return $this->restSuccess(
             [
                 ...Setting::gets($keys),
                 'languages' => Language::languages()->mapWithKeys(function ($item) {
                     return [$item->code => $item->name];
                 })->toArray(),
+                'social_logins' => $socialLogins,
             ]
         );
     }
